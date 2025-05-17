@@ -86,34 +86,40 @@ export default function IntroSlider({ onDone }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
+
   slide: {
     width,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
+
   title: {
     fontSize: 26,
     color: '#fff',
     fontWeight: 'bold',
     marginBottom: 20,
   },
+
   text: {
     fontSize: 16,
     color: '#fff',
     textAlign: 'center',
     marginTop: 20,
   },
+
   image: {
     width: 300,
     height: 300,
     resizeMode: 'contain',
   },
+
   pagination: {
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 10,
   },
+
   dot: {
     height: 8,
     width: 8,
@@ -121,10 +127,12 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 4,
   },
+
   activeDot: {
     backgroundColor: '#fff',
     width: 16,
   },
+
   button: {
     backgroundColor: '#000',
     margin: 20,
@@ -132,6 +140,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
   },
+  
   buttonText: {
     color: '#fff',
     fontSize: 16,
