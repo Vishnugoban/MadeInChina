@@ -1,20 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import IntroSlider from './screens/IntroSlides';
+import MainApp from './screens/HomeScreen';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [showRealApp, setShowRealApp] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  // Check if intro has already been shown
+  useEffect(() => {
+    const checkIntro = async () => {
+      const hasSeenIntro = await AsyncStorage.getItem('hasSeenIntro');
+      if (hasSeenIntro === 'true') {
+        setShowRealApp(true);
+      }
+      setLoading(false);
+    };
+    checkIntro();
+  }, []);
+
+  const handleDone = async () => {
+    await AsyncStorage.setItem('hasSeenIntro', 'true');
+    setShowRealApp(true);
+  };
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  return showRealApp ? <MainApp /> : <IntroSlider onDone={handleDone} />;
+}
