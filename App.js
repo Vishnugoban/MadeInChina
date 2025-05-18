@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import IntroSlider from './screens/IntroSlides';
-import MainApp from './screens/HomeScreen';
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import IntroSlider from "./screens/IntroSlides";
+import MainApp from "./screens/HomeScreen";
 
 export default function App() {
   const [showRealApp, setShowRealApp] = useState(false);
@@ -11,8 +13,8 @@ export default function App() {
   // Check if intro has already been shown
   useEffect(() => {
     const checkIntro = async () => {
-      const hasSeenIntro = await AsyncStorage.getItem('hasSeenIntro');
-      if (hasSeenIntro === 'true') {
+      const hasSeenIntro = await AsyncStorage.getItem("hasSeenIntro");
+      if (hasSeenIntro === "true") {
         setShowRealApp(true);
       }
       setLoading(false);
@@ -21,13 +23,13 @@ export default function App() {
   }, []);
 
   const handleDone = async () => {
-    await AsyncStorage.setItem('hasSeenIntro', 'true');
+    await AsyncStorage.setItem("hasSeenIntro", "true");
     setShowRealApp(true);
   };
 
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" />
       </View>
     );

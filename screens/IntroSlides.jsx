@@ -12,29 +12,32 @@ import IntroImg1 from "../assets/intro1.svg";
 import IntroImg2 from "../assets/intro2.svg";
 import IntroImg3 from "../assets/intro3.svg";
 
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 const { width } = Dimensions.get("window");
 
 const slides = [
   {
     id: "1",
-    title: "Welcome to MyApp",
-    text: "Explore the best features of our app.",
+    title: "Choose Products",
+    text: "Browse a wide range of items and pick what you love to get started - it's quick, easy, and tailored just for you.",
     image: IntroImg1,
-    backgroundColor: "#59b2ab",
+    backgroundColor: "#FFFFFF",
   },
   {
     id: "2",
-    title: "Plan with Ease",
-    text: "AI-powered itinerary planner at your fingertips.",
+    title: "Make Payment",
+    text: "Choose your preferred payment method and complete your purchase - secure, seamless, and designed for convenience.",
     image: IntroImg2,
-    backgroundColor: "#febe29",
+    backgroundColor: "#FFFFFF",
   },
   {
     id: "3",
-    title: "Start Your Journey",
-    text: "Book and enjoy your trip stress-free!",
+    title: "Get Your Order",
+    text: "Choose your preferred payment method and complete your purchase - secure, seamless, and designed for convenience.",
     image: IntroImg3,
-    backgroundColor: "#22bcb5",
+    backgroundColor: "#FFFFFF",
   },
 ];
 
@@ -51,20 +54,33 @@ const IntroSlides = ({ onDone }) => {
     }
   };
 
-  const renderItem = ({ item }) => {
+  const renderItem = ({ item, index }) => {
     const SvgImage = item.image;
 
     return (
       <View style={[styles.slide, { backgroundColor: item.backgroundColor }]}>
+        <SvgImage width={300} height={300} />
         <Text style={styles.title}>{item.title}</Text>
-        <SvgImage width={300} height={300} /> 
         <Text style={styles.text}>{item.text}</Text>
+
+        {/* Pagination Dots under text */}
+        <View style={styles.pagination}>
+          {slides.map((_, dotIndex) => (
+            <View
+              key={dotIndex}
+              style={[
+                styles.dot,
+                currentIndex === dotIndex && styles.activeDot,
+              ]}
+            />
+          ))}
+        </View>
       </View>
     );
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         ref={flatListRef}
         data={slides}
@@ -79,35 +95,29 @@ const IntroSlides = ({ onDone }) => {
         }}
       />
 
-      {/* Pagination Dots */}
-      <View style={styles.pagination}>
-        {slides.map((_, index) => (
-          <View
-            key={index}
-            style={[styles.dot, currentIndex === index && styles.activeDot]}
-          />
-        ))}
-      </View>
-
       {/* Button */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleNext}
-        accessible={true}
-        accessibilityLabel="Next or Get Started Button"
-      >
-        <Text style={styles.buttonText}>
-          {currentIndex === slides.length - 1 ? "Get Started" : "Next"}
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.skipBtn} onPress={onDone}>
+          <Text style={styles.skipBtnText}>Skip</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={handleNext}>
+          <FontAwesome name="arrow-circle-right" size={35} color="black" />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
 export default IntroSlides;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+  },
 
   slide: {
     width,
@@ -117,15 +127,18 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 26,
-    color: "#fff",
-    fontWeight: "bold",
-    marginBottom: 20,
+    fontFamily: "Roboto",
+    fontSize: 24,
+    color: "#000000",
+    fontWeight: "700",
+    textAlign: "center",
   },
 
   text: {
-    fontSize: 16,
-    color: "#fff",
+    fontFamily: "Roboto",
+    fontSize: 14,
+    color: "#000000",
+    fontWeight: "400",
     textAlign: "center",
     marginTop: 20,
   },
@@ -139,7 +152,8 @@ const styles = StyleSheet.create({
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 10,
+    alignItems: "center",
+    marginTop: "10%",
   },
 
   dot: {
@@ -151,20 +165,26 @@ const styles = StyleSheet.create({
   },
 
   activeDot: {
-    backgroundColor: "#fff",
-    width: 16,
+    backgroundColor: "black",
+    width: 40,
   },
 
-  button: {
-    backgroundColor: "#000",
-    margin: 20,
-    padding: 15,
-    borderRadius: 10,
+  skipBtnText: {
+    fontFamily: "Roboto",
+    fontWeight: "500",
+    textAlign: "center",
+    fontSize: 18,
+    color: "#1D1D1D",
+  },
+
+  skipBtn: {},
+
+  buttonContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-between",
     alignItems: "center",
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
+    paddingHorizontal: 20,
+    marginBottom: "10%",
   },
 });
