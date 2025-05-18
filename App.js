@@ -22,6 +22,14 @@ export default function App() {
     checkIntro();
   }, []);
 
+  // useEffect(() => {
+  //   const clearCache = async () => {
+  //     await AsyncStorage.removeItem("hasSeenIntro"); // or AsyncStorage.clear() to remove all keys
+  //     console.log("Intro cache cleared");
+  //   };
+  //   clearCache();
+  // }, []);
+
   const handleDone = async () => {
     await AsyncStorage.setItem("hasSeenIntro", "true");
     setShowRealApp(true);
