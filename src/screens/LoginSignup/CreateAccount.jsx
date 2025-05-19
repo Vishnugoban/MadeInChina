@@ -12,7 +12,7 @@ const CreateAccount = () => {
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ width: "100%", marginTop: 10 }}>
+      <View style={{ width: "100%" }}>
         <BackBtnCus />
         <Text style={[styles.title, { marginTop: 15 }]}>Sign up</Text>
       </View>
