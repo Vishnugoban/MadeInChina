@@ -18,7 +18,10 @@ const LoginScreen = () => {
 
       {/* Form Inputs */}
       <View style={{ width: "100%", marginTop: 20 }}>
-        <TextBoxCus label="Email" placeholder="example@gmail.com" />
+        <TextBoxCus
+          label="Email or phone number"
+          placeholder="enter email or phone number"
+        />
         <TextBoxCus
           label="Password"
           placeholder="must be 8 characters"
