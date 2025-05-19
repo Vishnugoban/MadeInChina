@@ -3,8 +3,8 @@ import { ActivityIndicator, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import IntroSlider from "./screens/IntroSlides";
-import MainApp from "./screens/HomeScreen";
+import IntroSlider from "./src/screens/IntroSlides";
+import MainApp from "./src/screens/HomeScreen";
 
 export default function App() {
   const [showRealApp, setShowRealApp] = useState(false);

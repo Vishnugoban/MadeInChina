@@ -79,7 +79,6 @@ const SlideItem = ({ item, index, scrollX, currentIndex }) => {
       </Animated.View>
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.text}>{item.text}</Text>
-
       <View style={styles.pagination}>
         {slides.map((_, dotIndex) => (
           <View
@@ -144,7 +143,6 @@ const IntroSlides = ({ onDone }) => {
         <TouchableOpacity style={styles.skipBtn} onPress={onDone}>
           <Text style={styles.skipBtnText}>Skip</Text>
         </TouchableOpacity>
-
         <TouchableOpacity onPress={handleNext}>
           <FontAwesome name="arrow-circle-right" size={35} color="black" />
         </TouchableOpacity>
@@ -162,12 +160,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#FFFFFF",
   },
+
   slide: {
     width,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
   },
+
   title: {
     fontFamily: "Roboto",
     fontSize: 24,
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
   },
+
   text: {
     fontFamily: "Roboto",
     fontSize: 14,
@@ -183,17 +184,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
   },
+
   image: {
     width: 300,
     height: 300,
     resizeMode: "contain",
   },
+
   pagination: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     marginTop: "10%",
   },
+
   dot: {
     height: 8,
     width: 8,
@@ -201,10 +205,12 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 4,
   },
+
   activeDot: {
     backgroundColor: "black",
     width: 40,
   },
+
   skipBtnText: {
     fontFamily: "Roboto",
     fontWeight: "500",
@@ -212,7 +218,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#1D1D1D",
   },
+
   skipBtn: {},
+
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
