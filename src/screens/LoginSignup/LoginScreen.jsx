@@ -1,14 +1,18 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import TextBoxCus from "../../components/TextBoxCus";
+import { Checkbox } from "react-native-paper";
 
+import TextBoxCus from "../../components/TextBoxCus";
 import BtnCus from "../../components/BtnCus";
 import BackBtnCus from "../../components/BackBtnCus";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const [rememberMe, setRememberMe] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={{ width: "100%" }}>
@@ -29,15 +33,18 @@ const LoginScreen = () => {
         />
         <View style={styles.rememberForgotRow}>
           <View style={styles.rememberMeContainer}>
-            {/* You can use a real checkbox component here */}
-            <View style={styles.checkbox} />
+            <Checkbox.Android
+              status={rememberMe ? "checked" : "unchecked"}
+              onPress={() => setRememberMe(!rememberMe)}
+              color="#00B761"
+              uncheckedColor="#000"
+            />
             <Text style={styles.rememberText}>Remember me</Text>
           </View>
-
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPassword")}
           >
-            <Text style={styles.forgotText}>Forgot password?</Text>
+            <Text style={styles.rememberText}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -141,23 +148,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  checkbox: {
-    width: 18,
-    height: 18,
-    borderWidth: 1,
-    borderColor: "#000",
-    borderRadius: 10,
-    marginRight: 8,
-  },
-
   rememberText: {
-    fontFamily: "Roboto",
-    fontSize: 12,
-    color: "#000",
-    fontWeight: "400",
-  },
-
-  forgotText: {
     fontFamily: "Roboto",
     fontSize: 12,
     color: "#000",
