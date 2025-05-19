@@ -9,7 +9,7 @@ const CreateAccount = () => {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Home Screen</Text>
-      <Button onPress={() => navigation.navigate("Login")}>Back</Button>
+      <Button onPress={() => navigation.goBack()}>Back</Button>
     </View>
   );
 };
