@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationContainer } from "@react-navigation/native";
 
 import IntroSlider from "./src/screens/IntroSlides";
-import MainApp from "./src/screens/HomeScreen";
+import RootStack from "./src/navigation/RootStack";
 
 export default function App() {
   const [showRealApp, setShowRealApp] = useState(false);
@@ -43,5 +44,11 @@ export default function App() {
     );
   }
 
-  return showRealApp ? <MainApp /> : <IntroSlider onDone={handleDone} />;
+  return showRealApp ? (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  ) : (
+    <IntroSlider onDone={handleDone} />
+  );
 }
