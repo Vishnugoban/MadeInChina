@@ -40,7 +40,7 @@ const LoginScreen = () => {
               uncheckedColor="#000"
             />
             <Text style={styles.rememberText}>Remember me</Text>
-          </View>
+          </View> 
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPassword")}
           >
