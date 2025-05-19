@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -27,6 +27,19 @@ const LoginScreen = () => {
           placeholder="must be 8 characters"
           secureTextEntry={true}
         />
+        <View style={styles.rememberForgotRow}>
+          <View style={styles.rememberMeContainer}>
+            {/* You can use a real checkbox component here */}
+            <View style={styles.checkbox} />
+            <Text style={styles.rememberText}>Remember me</Text>
+          </View>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate("ForgotPassword")}
+          >
+            <Text style={styles.forgotText}>Forgot password?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Spacer to push footer to bottom */}
@@ -112,5 +125,42 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "left",
     marginBottom: "3%",
+  },
+
+  rememberForgotRow: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+
+  rememberMeContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  checkbox: {
+    width: 18,
+    height: 18,
+    borderWidth: 1,
+    borderColor: "#000",
+    borderRadius: 10,
+    marginRight: 8,
+  },
+
+  rememberText: {
+    fontFamily: "Roboto",
+    fontSize: 12,
+    color: "#000",
+    fontWeight: "400",
+  },
+
+  forgotText: {
+    fontFamily: "Roboto",
+    fontSize: 12,
+    color: "#000",
+    fontWeight: "400",
   },
 });
