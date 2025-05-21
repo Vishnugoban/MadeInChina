@@ -55,20 +55,23 @@ const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: "space-between",
   },
+
   cell: {
-    width: 50,
-    height: 50,
+    width: 65,
+    height: 70,
     borderWidth: 1,
     borderColor: "#000",
-    borderRadius: 10,
+    borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
   },
+
   cellText: {
     fontSize: 24,
     textAlign: "center",
   },
+
   focusCell: {
-    borderColor: "#007AFF",
+    borderColor: "#F85605",
   },
 });
