@@ -10,7 +10,7 @@ import {
 
 const CELL_COUNT = 5;
 
-const OTPInput = ({ onCodeFilled }) => {
+const OTPInput = ({ onCodeFilled, hasError }) => {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -36,7 +36,11 @@ const OTPInput = ({ onCodeFilled }) => {
       renderCell={({ index, symbol, isFocused }) => (
         <View
           key={index}
-          style={[styles.cell, isFocused && styles.focusCell]}
+          style={[
+            styles.cell,
+            hasError && styles.errorCell,
+            isFocused && styles.focusCell,
+          ]}
           onLayout={getCellOnLayoutHandler(index)}
         >
           <Text style={styles.cellText}>
@@ -73,5 +77,9 @@ const styles = StyleSheet.create({
 
   focusCell: {
     borderColor: "#F85605",
+  },
+
+  errorCell: {
+    borderColor: "#F54135",
   },
 });
