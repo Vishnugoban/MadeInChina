@@ -36,7 +36,7 @@ const ResetPwd = () => {
 
       <View style={{ width: "100%" }}>
         <BtnCus
-          onPress={() => navigation.navigate("VerifyCode")}
+          onPress={() => navigation.navigate("SuccessScreen")}
           text="Reset Password"
           google={false}
         />
