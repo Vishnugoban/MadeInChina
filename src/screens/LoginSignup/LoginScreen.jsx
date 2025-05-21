@@ -21,7 +21,7 @@ const LoginScreen = () => {
       </View>
 
       {/* Form Inputs */}
-      <View style={{ width: "100%", marginTop: 20 }}>
+      <View style={{ width: "100%", marginTop: 10 }}>
         <TextBoxCus
           label="Email or phone number"
           placeholder="enter email or phone number"
@@ -40,7 +40,7 @@ const LoginScreen = () => {
               uncheckedColor="#000"
             />
             <Text style={styles.rememberText}>Remember me</Text>
-          </View> 
+          </View>
           <TouchableOpacity
             onPress={() => navigation.navigate("ForgotPassword")}
           >

@@ -18,7 +18,7 @@ const CreateAccount = () => {
       </View>
 
       {/* Input Fields */}
-      <View style={{ width: "100%", marginTop: 20 }}>
+      <View style={{ width: "100%" }}>
         <TextBoxCus label="Email" placeholder="example@gmail.com" />
         <TextBoxCus label="Phone Number" placeholder="eg. +94 76 123 4567" />
         <TextBoxCus
