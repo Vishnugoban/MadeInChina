@@ -11,6 +11,7 @@ import {
 } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
 
 import BackBtnCus from "../../components/BackBtnCus";
 import OTPInput from "../../components/OTPInput";
@@ -20,6 +21,8 @@ const RESEND_TIME = 30;
 const CORRECT_CODE = "25017";
 
 const VerifyCode = () => {
+  const navigation = useNavigation();
+
   const [enteredCode, setEnteredCode] = useState("");
   const [error, setError] = useState(false);
   const [timer, setTimer] = useState(RESEND_TIME);
@@ -105,7 +108,7 @@ const VerifyCode = () => {
                 } else {
                   setError(false);
                   Alert.alert("Success", "Code verified!");
-                  // Navigate or continue...
+                  navigation.navigate("HomeScreen");
                 }
               }}
               text="Verify"
