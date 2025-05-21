@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import TextBoxCus from "../../components/TextBoxCus";
 import BtnCus from "../../components/BtnCus";
 import BackBtnCus from "../../components/BackBtnCus";
@@ -39,7 +40,7 @@ const CreateAccount = () => {
       {/* Footer */}
       <View style={{ width: "100%" }}>
         <BtnCus
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("VerifyCode")}
           text="Sign up"
           google={false}
         />
