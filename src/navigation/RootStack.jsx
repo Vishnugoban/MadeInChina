@@ -4,6 +4,7 @@ import LoginScreen from "../screens/LoginSignup/LoginScreen";
 import CreateAccount from "../screens/LoginSignup/CreateAccount";
 import VerifyCode from "../screens/LoginSignup/VerifyCode";
 import HomeScreen from "../screens/HomeScreen";
+import ResetPwd from "../screens/LoginSignup/ResetPwd";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -28,6 +29,11 @@ const RootStack = () => {
       <Stack.Screen
         name="VerifyCode"
         component={VerifyCode}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="ResetPwd"
+        component={ResetPwd}
         options={{ headerShown: false }}
       />
       <Stack.Screen
