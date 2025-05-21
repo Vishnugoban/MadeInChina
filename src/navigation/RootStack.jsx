@@ -31,7 +31,7 @@ const RootStack = () => {
         component={VerifyCode}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="ResetPwd"
         component={ResetPwd}
         options={{ headerShown: false }}

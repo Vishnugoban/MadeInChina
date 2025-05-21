@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "left",
   },
+
   subTitle: {
     fontFamily: "Roboto",
     fontSize: 16,
@@ -153,6 +154,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginTop: 15,
   },
+
   errorText: {
     fontFamily: "Roboto",
     color: "#F54135",
@@ -161,12 +163,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: "center",
   },
+
   resendText: {
     fontFamily: "Roboto",
     textAlign: "center",
     fontSize: 14,
     fontWeight: "600",
   },
+
   resendContainer: {
     marginTop: 20,
     flexDirection: "row",
