@@ -55,7 +55,7 @@ const LoginScreen = () => {
       {/* Footer Buttons */}
       <View style={{ width: "100%" }}>
         <BtnCus
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("HomeScreen")}
           text="Login"
           google={false}
         />
