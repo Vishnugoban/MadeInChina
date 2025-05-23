@@ -39,7 +39,14 @@ const ResetPwd = () => {
 
       <View style={{ width: "100%" }}>
         <BtnCus
-          onPress={() => navigation.navigate("SuccessScreen")}
+          onPress={() =>
+            navigation.navigate("SuccessScreen", {
+              title: "Password Changed",
+              text: "Your password has been changed successfully",
+              buttonText: "Back to Login",
+              onPressType: "navigateToLogin",
+            })
+          }
           text="Reset Password"
           google={false}
         />
