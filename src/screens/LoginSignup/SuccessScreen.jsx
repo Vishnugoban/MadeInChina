@@ -18,9 +18,12 @@ const SuccessScreen = () => {
       navigation.navigate("Login");
     } else if (onPressType === "goBack") {
       navigation.goBack();
+    }
+    if (onPressType === "navigateToHome") {
+      navigation.navigate("HomeScreen");
     } else {
       // fallback if no type matches
-      navigation.navigate("Home");
+      navigation.navigate("HomeScreen");
     }
   };
 

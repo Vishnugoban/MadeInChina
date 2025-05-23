@@ -108,7 +108,12 @@ const VerifyCode = () => {
                 } else {
                   setError(false);
                   Alert.alert("Success", "Code verified!");
-                  navigation.navigate("HomeScreen");
+                  navigation.navigate("SuccessScreen", {
+                    title: "Account Created",
+                    text: "Your account has been created successfully",
+                    buttonText: "Get Started",
+                    onPressType: "navigateToHome",
+                  });
                 }
               }}
               text="Verify"
