@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const categories = [
   {
@@ -40,7 +41,7 @@ const CategoryItem = ({ image, title }) => (
 
 const Category = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Search */}
         <View style={styles.searchContainer}>
@@ -73,7 +74,7 @@ const Category = () => {
           contentContainerStyle={styles.categoryGrid}
         />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
