@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Platform,
+  FlatList,
 } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -22,6 +23,9 @@ const categories = [
   { title: "Electronics", image: require("../assets/category/elect_cate.png") },
   { title: "Shoes", image: require("../assets/category/shoes_cate.png") },
   { title: "Womens", image: require("../assets/category/women_cate.png") },
+  { title: "Bags", image: require("../assets/category/bags_cate.png") },
+  { title: "Security", image: require("../assets/category/security_cate.png") },
+  { title: "Kids", image: require("../assets/category/kids_cate.png") },
   { title: "Bags", image: require("../assets/category/bags_cate.png") },
   { title: "Security", image: require("../assets/category/security_cate.png") },
   { title: "Kids", image: require("../assets/category/kids_cate.png") },
@@ -48,24 +52,26 @@ const Category = () => {
           />
         </View>
 
-        {/* Categories */}
+        {/* Categories header */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>All Featured</Text>
+          <Text style={styles.sectionTitle}>Our Category</Text>
           <TouchableOpacity style={styles.sortBtn}>
             <Text style={styles.sortText}>Sort</Text>
             <MaterialCommunityIcons name="filter-variant" size={16} />
           </TouchableOpacity>
         </View>
 
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.categoryScroll}
-        >
-          {categories.map((item, index) => (
-            <CategoryItem key={index} image={item.image} title={item.title} />
-          ))}
-        </ScrollView>
+        {/* Categories grid */}
+        <FlatList
+          data={categories}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <CategoryItem image={item.image} title={item.title} />
+          )}
+          numColumns={4} // 4 items per row
+          scrollEnabled={false}
+          contentContainerStyle={styles.categoryGrid}
+        />
       </ScrollView>
     </View>
   );
@@ -130,15 +136,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 
-  categoryScroll: {
-    paddingBottom: 15,
+  categoryGrid: {
+    // paddingBottom: 15, // optional
   },
 
   categoryItem: {
+    flex: 1,
+    margin: 5,
     alignItems: "center",
-    marginRight: 25,
     paddingVertical: 5,
-    marginBottom: 10,
   },
 
   categoryImage: {
@@ -154,5 +160,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 14,
     color: "#161616",
+    textAlign: "center",
   },
 });
