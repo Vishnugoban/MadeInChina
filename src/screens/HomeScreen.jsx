@@ -11,8 +11,10 @@ import {
   useWindowDimensions,
   Platform,
 } from "react-native";
-import { Ionicons, Feather } from "@expo/vector-icons";
+
+import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
 import TempLogo from "../assets/tem_logo.svg";
 
 const categories = [
@@ -80,19 +82,20 @@ const HomeScreen = () => {
         {/* Header */}
         <View style={styles.header}>
           <TempLogo width={120} height={40} />
-          <View style={styles.icons}>
-            <Feather name="bell" size={22} style={styles.iconSpacing} />
-            <Feather name="shopping-cart" size={22} />
-          </View>
+          <MaterialCommunityIcons
+            name="bell-ring-outline"
+            size={20}
+            style={styles.iconSpacing}
+          />
         </View>
 
         {/* Search */}
         <View style={styles.searchContainer}>
-          <Ionicons name="search" size={20} color="gray" />
+          <MaterialCommunityIcons name="magnify" size={25} color="#A2A2A2" />
           <TextInput
             placeholder="Search any product..."
             style={styles.searchInput}
-            placeholderTextColor="#666"
+            placeholderTextColor="#A2A2A2"
           />
         </View>
 
@@ -117,8 +120,8 @@ const HomeScreen = () => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>All Featured</Text>
           <TouchableOpacity style={styles.sortBtn}>
-            <Feather name="filter" size={16} />
             <Text style={styles.sortText}>Sort</Text>
+            <MaterialCommunityIcons name="filter-variant" size={16} />
           </TouchableOpacity>
         </View>
 
@@ -183,33 +186,37 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "#E2E2E2",
+    borderRadius: 8,
     paddingHorizontal: 12,
-    paddingVertical: 10,
     marginBottom: 20,
   },
 
   searchInput: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     marginLeft: 10,
     flex: 1,
     fontSize: 14,
   },
 
   banner: {
-    borderRadius: 10,
+    borderRadius: 12,
     overflow: "hidden",
     marginBottom: 25,
-    backgroundColor: "#ff5722",
   },
 
   bannerImage: {
     width: "100%",
-    height: 140,
+    height: 170,
     resizeMode: "cover",
   },
 
   bannerText: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     position: "absolute",
     top: 20,
     left: 15,
@@ -217,29 +224,36 @@ const styles = StyleSheet.create({
   },
 
   flashText: {
+    fontFamily: "Roboto",
+    fontWeight: "700",
     color: "#fff",
-    fontWeight: "bold",
-    fontSize: 20,
+    fontSize: 28,
   },
 
   flashSubText: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     color: "#fff",
     marginTop: 5,
-    fontSize: 14,
+    fontSize: 16,
   },
 
   shopNowBtn: {
     marginTop: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "transparent",
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 5,
     alignSelf: "flex-start",
+    borderWidth: 1,
+    borderColor: "#fff",
   },
 
   shopNowText: {
-    color: "#ff5722",
-    fontWeight: "bold",
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    fontSize: 16,
+    color: "#FFFFFF",
   },
 
   section: {
@@ -250,16 +264,24 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    fontWeight: "bold",
+    fontFamily: "Roboto",
+    fontWeight: "600",
     fontSize: 18,
   },
 
   sortBtn: {
+    borderWidth: 1,
+    borderColor: "#E2E2E2",
+    borderRadius: 8,
     flexDirection: "row",
     alignItems: "center",
+    padding: 8,
+    gap: 10,
   },
 
   sortText: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     marginLeft: 5,
     fontSize: 14,
   },
@@ -272,17 +294,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginRight: 25,
     paddingVertical: 5,
+    marginBottom: 10,
   },
 
   categoryText: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     marginTop: 5,
-    fontSize: 13,
-    color: "#333",
+    fontSize: 14,
+    color: "#161616",
   },
 
   viewMore: {
-    fontSize: 13,
-    color: "#007bff",
+    fontFamily: "Roboto",
+    fontWeight: "500",
+    fontSize: 14,
+    color: "#F85605",
   },
 
   productCard: {
