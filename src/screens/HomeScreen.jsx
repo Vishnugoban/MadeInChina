@@ -18,10 +18,13 @@ import { useNavigation } from "@react-navigation/native";
 import TempLogo from "../assets/tem_logo.svg";
 
 const categories = [
-  { title: "Accessories", icon: "headset" },
-  { title: "Mens", icon: "man" },
-  { title: "Beauty", icon: "rose" },
-  { title: "Electronics", icon: "tv" },
+  {
+    title: "Accessories",
+    image: require("../assets/category/accessories_cate.png"),
+  },
+  { title: "Mens", image: require("../assets/category/mens_cate.png") },
+  { title: "Beauty", image: require("../assets/category/beauty_cate.png") },
+  { title: "Electronics", image: require("../assets/category/elect_cate.png") },
 ];
 
 const products = [
@@ -51,9 +54,9 @@ const products = [
   },
 ];
 
-const CategoryItem = ({ icon, title }) => (
+const CategoryItem = ({ image, title }) => (
   <TouchableOpacity style={styles.categoryItem}>
-    <Ionicons name={icon} size={22} color="#444" />
+    <Image source={image} style={styles.categoryImage} />
     <Text style={styles.categoryText}>{title}</Text>
   </TouchableOpacity>
 );
@@ -85,11 +88,22 @@ const HomeScreen = () => {
         {/* Header */}
         <View style={styles.header}>
           <TempLogo width={120} height={40} />
-          <MaterialCommunityIcons
-            name="bell-ring-outline"
-            size={20}
-            style={styles.iconSpacing}
-          />
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FEEEE6",
+              width: 45,
+              height: 45,
+              borderRadius: 22.5,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="bell-ring-outline"
+              size={22}
+              color="#333333"
+            />
+          </TouchableOpacity>
         </View>
 
         {/* Search */}
@@ -134,7 +148,7 @@ const HomeScreen = () => {
           contentContainerStyle={styles.categoryScroll}
         >
           {categories.map((item, index) => (
-            <CategoryItem key={index} icon={item.icon} title={item.title} />
+            <CategoryItem key={index} image={item.image} title={item.title} />
           ))}
         </ScrollView>
 
@@ -298,6 +312,13 @@ const styles = StyleSheet.create({
     marginRight: 25,
     paddingVertical: 5,
     marginBottom: 10,
+  },
+
+  categoryImage: {
+    width: 65,
+    height: 65,
+    borderRadius: 50,
+    resizeMode: "contain",
   },
 
   categoryText: {
