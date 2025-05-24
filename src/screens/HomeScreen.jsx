@@ -8,13 +8,12 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  Dimensions,
+  useWindowDimensions,
+  Platform,
 } from "react-native";
-
 import { Ionicons, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
-const { width } = Dimensions.get("window");
+import TempLogo from "../assets/tem_logo.svg";
 
 const categories = [
   { title: "Accessories", icon: "headset" },
@@ -50,32 +49,50 @@ const products = [
   },
 ];
 
+const CategoryItem = ({ icon, title }) => (
+  <TouchableOpacity style={styles.categoryItem}>
+    <Ionicons name={icon} size={22} color="#444" />
+    <Text style={styles.categoryText}>{title}</Text>
+  </TouchableOpacity>
+);
+
+const ProductCard = ({ item, cardWidth }) => (
+  <View style={[styles.productCard, { width: cardWidth }]}>
+    <Image source={item.image} style={styles.productImage} />
+    <Text numberOfLines={2} style={styles.productTitle}>
+      {item.title}
+    </Text>
+    <Text style={styles.productPrice}>LKR {item.price}.00</Text>
+    <Text style={styles.delivery}>
+      Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
+    </Text>
+  </View>
+);
+
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { width } = useWindowDimensions();
+  const cardWidth = (width - 60) / 2;
 
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.logo}>Made in China</Text>
+          <TempLogo width={120} height={40} />
           <View style={styles.icons}>
-            <Feather
-              name="bell"
-              size={20}
-              color="#000"
-              style={{ marginRight: 10 }}
-            />
-            <Feather name="shopping-cart" size={20} color="#000" />
+            <Feather name="bell" size={22} style={styles.iconSpacing} />
+            <Feather name="shopping-cart" size={22} />
           </View>
         </View>
 
         {/* Search */}
         <View style={styles.searchContainer}>
-          <Ionicons name="search" size={18} color="gray" />
+          <Ionicons name="search" size={20} color="gray" />
           <TextInput
             placeholder="Search any product..."
             style={styles.searchInput}
+            placeholderTextColor="#666"
           />
         </View>
 
@@ -108,20 +125,19 @@ const HomeScreen = () => {
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.categoryScroll}
+          contentContainerStyle={styles.categoryScroll}
         >
           {categories.map((item, index) => (
-            <View key={index} style={styles.categoryItem}>
-              <Ionicons name={item.icon} size={24} color="#000" />
-              <Text style={styles.categoryText}>{item.title}</Text>
-            </View>
+            <CategoryItem key={index} icon={item.icon} title={item.title} />
           ))}
         </ScrollView>
 
         {/* Products */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Our Products</Text>
-          <Text style={styles.viewMore}>View More</Text>
+          <TouchableOpacity>
+            <Text style={styles.viewMore}>View More</Text>
+          </TouchableOpacity>
         </View>
 
         <FlatList
@@ -129,150 +145,177 @@ const HomeScreen = () => {
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: "space-between" }}
-          contentContainerStyle={styles.productGrid}
           renderItem={({ item }) => (
-            <View style={styles.productCard}>
-              <Image source={item.image} style={styles.productImage} />
-              <Text style={styles.productTitle}>{item.title}</Text>
-              <Text style={styles.productPrice}>LKR {item.price}.00</Text>
-              <Text style={styles.delivery}>
-                Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
-              </Text>
-            </View>
+            <ProductCard item={item} cardWidth={cardWidth} />
           )}
+          scrollEnabled={false}
         />
       </ScrollView>
     </View>
   );
 };
+
 export default HomeScreen;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingHorizontal: 15,
+    paddingTop: Platform.OS === "android" ? 35 : 20,
+    paddingHorizontal: 10,
   },
+
   header: {
-    marginTop: 40,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 15,
   },
-  logo: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "red",
-  },
+
   icons: {
     flexDirection: "row",
   },
+
+  iconSpacing: {
+    marginRight: 15,
+  },
+
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#eee",
+    backgroundColor: "#f0f0f0",
     borderRadius: 10,
-    padding: 10,
-    marginVertical: 15,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 20,
   },
+
   searchInput: {
     marginLeft: 10,
     flex: 1,
+    fontSize: 14,
   },
+
   banner: {
-    backgroundColor: "#ff5722",
     borderRadius: 10,
     overflow: "hidden",
-    marginBottom: 20,
+    marginBottom: 25,
+    backgroundColor: "#ff5722",
   },
+
   bannerImage: {
     width: "100%",
-    height: 120,
+    height: 140,
     resizeMode: "cover",
   },
+
   bannerText: {
     position: "absolute",
     top: 20,
     left: 15,
+    right: 15,
   },
+
   flashText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 20,
   },
+
   flashSubText: {
     color: "#fff",
     marginTop: 5,
+    fontSize: 14,
   },
+
   shopNowBtn: {
     marginTop: 10,
     backgroundColor: "#fff",
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
     borderRadius: 5,
+    alignSelf: "flex-start",
   },
+
   shopNowText: {
     color: "#ff5722",
     fontWeight: "bold",
   },
+
   section: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
   },
+
   sectionTitle: {
     fontWeight: "bold",
-    fontSize: 16,
+    fontSize: 18,
   },
+
   sortBtn: {
     flexDirection: "row",
     alignItems: "center",
   },
+
   sortText: {
     marginLeft: 5,
+    fontSize: 14,
   },
+
   categoryScroll: {
-    marginBottom: 20,
+    paddingBottom: 15,
   },
+
   categoryItem: {
     alignItems: "center",
-    marginRight: 20,
+    marginRight: 25,
+    paddingVertical: 5,
   },
+
   categoryText: {
     marginTop: 5,
-    fontSize: 12,
+    fontSize: 13,
+    color: "#333",
   },
+
   viewMore: {
-    fontSize: 12,
-    color: "blue",
+    fontSize: 13,
+    color: "#007bff",
   },
-  productGrid: {
-    paddingBottom: 60,
-  },
+
   productCard: {
-    backgroundColor: "#f9f9f9",
-    borderRadius: 10,
+    backgroundColor: "#f8f8f8",
+    borderRadius: 12,
     marginBottom: 20,
     padding: 10,
-    width: (width - 50) / 2,
   },
+
   productImage: {
     width: "100%",
-    height: 120,
+    height: 130,
     borderRadius: 10,
+    resizeMode: "cover",
   },
+
   productTitle: {
-    fontWeight: "bold",
+    fontWeight: "600",
+    fontSize: 14,
     marginTop: 10,
+    color: "#222",
   },
+
   productPrice: {
-    color: "green",
+    color: "#388e3c",
     fontWeight: "bold",
-    marginTop: 5,
+    marginTop: 6,
+    fontSize: 14,
   },
+
   delivery: {
-    fontSize: 10,
-    marginTop: 5,
-    color: "#888",
+    fontSize: 11,
+    marginTop: 4,
+    color: "#777",
   },
 });

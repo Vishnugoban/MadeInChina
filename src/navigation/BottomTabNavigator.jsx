@@ -87,7 +87,16 @@ function CustomTabBar({ state, descriptors, navigation }) {
               size={24}
               color={color}
             />
-            <Text style={{ fontSize: 12, color, marginTop: 4 }}>{label}</Text>
+            <Text
+              style={{
+                fontFamily: "Roboto",
+                fontSize: 12,
+                color,
+                marginTop: 4,
+              }}
+            >
+              {label}
+            </Text>
           </TouchableOpacity>
         );
       })}
