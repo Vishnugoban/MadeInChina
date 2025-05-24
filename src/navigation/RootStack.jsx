@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+import BottomTabNavigator from "./BottomTabNavigator";
 import LoginScreen from "../screens/LoginSignup/LoginScreen";
 import CreateAccount from "../screens/LoginSignup/CreateAccount";
 import VerifyCode from "../screens/LoginSignup/VerifyCode";
-import HomeScreen from "../screens/HomeScreen";
 import ResetPwd from "../screens/LoginSignup/ResetPwd";
 import SuccessScreen from "../screens/LoginSignup/SuccessScreen";
 
@@ -44,7 +44,7 @@ const RootStack = () => {
       />
       <Stack.Screen
         name="HomeScreen"
-        component={HomeScreen}
+        component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
