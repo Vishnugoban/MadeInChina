@@ -39,6 +39,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
       toValue: state.index * tabWidth,
       useNativeDriver: true,
     }).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.index]);
 
   return (
