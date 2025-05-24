@@ -13,7 +13,6 @@ import {
 } from "react-native";
 
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 import TempLogo from "../assets/tem_logo.svg";
 
@@ -82,8 +81,6 @@ const ProductCard = ({ item, cardWidth }) => (
 );
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
-
   const { width } = useWindowDimensions();
   const cardWidth = (width - 40) / 2;
 
