@@ -7,7 +7,6 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  useWindowDimensions,
   Platform,
 } from "react-native";
 
@@ -36,8 +35,6 @@ const CategoryItem = ({ image, title }) => (
 );
 
 const Category = () => {
-  const { width } = useWindowDimensions();
-
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
