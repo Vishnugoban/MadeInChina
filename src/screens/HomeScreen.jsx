@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 
-import { Ionicons, Feather, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import TempLogo from "../assets/tem_logo.svg";
@@ -61,20 +61,23 @@ const CategoryItem = ({ icon, title }) => (
 const ProductCard = ({ item, cardWidth }) => (
   <View style={[styles.productCard, { width: cardWidth }]}>
     <Image source={item.image} style={styles.productImage} />
-    <Text numberOfLines={2} style={styles.productTitle}>
-      {item.title}
-    </Text>
-    <Text style={styles.productPrice}>LKR {item.price}.00</Text>
-    <Text style={styles.delivery}>
-      Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
-    </Text>
+    <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+      <Text numberOfLines={2} style={styles.productTitle}>
+        {item.title}
+      </Text>
+      <Text style={styles.productPrice}>LKR {item.price}.00</Text>
+      <Text style={styles.delivery}>
+        Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
+      </Text>
+    </View>
   </View>
 );
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
   const { width } = useWindowDimensions();
-  const cardWidth = (width - 60) / 2;
+  const cardWidth = (width - 40) / 2;
 
   return (
     <View style={styles.container}>
@@ -313,36 +316,40 @@ const styles = StyleSheet.create({
   },
 
   productCard: {
-    backgroundColor: "#f8f8f8",
-    borderRadius: 12,
+    backgroundColor: "#fff",
+    borderRadius: 8,
     marginBottom: 20,
-    padding: 10,
+    borderWidth: 0.5,
+    borderColor: "#E2E2E2",
   },
 
   productImage: {
     width: "100%",
     height: 130,
-    borderRadius: 10,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
     resizeMode: "cover",
   },
 
   productTitle: {
-    fontWeight: "600",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 14,
-    marginTop: 10,
-    color: "#222",
+    color: "#161616",
   },
 
   productPrice: {
-    color: "#388e3c",
-    fontWeight: "bold",
-    marginTop: 6,
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 14,
+    color: "#161616",
   },
 
   delivery: {
-    fontSize: 11,
+    fontFamily: "Roboto",
+    fontWeight: "500",
+    fontSize: 12,
+    color: "#666666",
     marginTop: 4,
-    color: "#777",
   },
 });
