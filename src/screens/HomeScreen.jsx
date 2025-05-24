@@ -12,7 +12,7 @@ import {
   Platform,
 } from "react-native";
 
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import TempLogo from "../assets/tem_logo.svg";
@@ -25,6 +25,11 @@ const categories = [
   { title: "Mens", image: require("../assets/category/mens_cate.png") },
   { title: "Beauty", image: require("../assets/category/beauty_cate.png") },
   { title: "Electronics", image: require("../assets/category/elect_cate.png") },
+  { title: "Shoes", image: require("../assets/category/shoes_cate.png") },
+  { title: "Womens", image: require("../assets/category/women_cate.png") },
+  { title: "Bags", image: require("../assets/category/bags_cate.png") },
+  { title: "Security", image: require("../assets/category/security_cate.png") },
+  { title: "Kids", image: require("../assets/category/kids_cate.png") },
 ];
 
 const products = [
