@@ -14,6 +14,8 @@ import { Ionicons, MaterialIcons, Entypo, Octicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 const Account = () => {
+  const navigation = useNavigation();
+
   const [profileImage, setProfileImage] = useState(null);
 
   const handleImagePick = () => {
@@ -91,7 +93,14 @@ const Account = () => {
 
       <View style={styles.card}>
         <Option
-          icon={<Octicons name="person" size={20} color="#F85605" />}
+          icon={
+            <Octicons
+              name="person"
+              size={20}
+              color="#F85605"
+              onPress={() => navigation.navigate("PersonalDetails")}
+            />
+          }
           label="Personal Details"
         />
         <Option
@@ -114,20 +123,13 @@ const Account = () => {
   );
 };
 
-const Option = ({ icon, label }) => {
-  const navigation = useNavigation();
-
-  return (
-    <TouchableOpacity
-      style={styles.optionRow}
-      onPress={() => navigation.navigate("PersonalDetails")}
-    >
-      <View style={styles.iconWrapper}>{icon}</View>
-      <Text style={styles.optionLabel}>{label}</Text>
-      <Ionicons name="chevron-forward" size={18} color="#939393" />
-    </TouchableOpacity>
-  );
-};
+const Option = ({ icon, label, onPress }) => (
+  <TouchableOpacity style={styles.optionRow} onPress={onPress}>
+    <View style={styles.iconWrapper}>{icon}</View>
+    <Text style={styles.optionLabel}>{label}</Text>
+    <Ionicons name="chevron-forward" size={18} color="#939393" />
+  </TouchableOpacity>
+);
 
 const styles = StyleSheet.create({
   container: {
