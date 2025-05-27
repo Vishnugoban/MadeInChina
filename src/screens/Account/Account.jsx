@@ -8,8 +8,10 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
+
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialIcons, Entypo, Octicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Account = () => {
   const [profileImage, setProfileImage] = useState(null);
@@ -112,13 +114,20 @@ const Account = () => {
   );
 };
 
-const Option = ({ icon, label }) => (
-  <TouchableOpacity style={styles.optionRow}>
-    <View style={styles.iconWrapper}>{icon}</View>
-    <Text style={styles.optionLabel}>{label}</Text>
-    <Ionicons name="chevron-forward" size={18} color="#939393" />
-  </TouchableOpacity>
-);
+const Option = ({ icon, label }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      style={styles.optionRow}
+      onPress={() => navigation.navigate("PersonalDetails")}
+    >
+      <View style={styles.iconWrapper}>{icon}</View>
+      <Text style={styles.optionLabel}>{label}</Text>
+      <Ionicons name="chevron-forward" size={18} color="#939393" />
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {

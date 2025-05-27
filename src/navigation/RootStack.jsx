@@ -6,6 +6,7 @@ import CreateAccount from "../screens/LoginSignup/CreateAccount";
 import VerifyCode from "../screens/LoginSignup/VerifyCode";
 import ResetPwd from "../screens/LoginSignup/ResetPwd";
 import SuccessScreen from "../screens/LoginSignup/SuccessScreen";
+import PersonalDetails from "../screens/Account/PersonalDetails";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -45,6 +46,11 @@ const RootStack = () => {
       <Stack.Screen
         name="HomeScreen"
         component={BottomTabNavigator}
+        options={{ headerShown: false }}
+      />
+       <Stack.Screen
+        name="PersonalDetails"
+        component={PersonalDetails}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
