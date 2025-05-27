@@ -14,7 +14,20 @@ import { Ionicons, MaterialIcons, Entypo, Octicons } from "@expo/vector-icons";
 const Account = () => {
   const [profileImage, setProfileImage] = useState(null);
 
-  const pickImage = async () => {
+  const handleImagePick = () => {
+    Alert.alert(
+      "Change Profile Picture",
+      "Choose an option",
+      [
+        { text: "Take Photo", onPress: openCamera },
+        { text: "Choose from Library", onPress: openGallery },
+        { text: "Cancel", style: "cancel" },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const openGallery = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       Alert.alert(
@@ -31,7 +44,28 @@ const Account = () => {
       quality: 0.5,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
+      setProfileImage(result.assets[0].uri);
+    }
+  };
+
+  const openCamera = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "Permission to access camera is required!"
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.5,
+    });
+
+    if (!result.canceled) {
       setProfileImage(result.assets[0].uri);
     }
   };
@@ -50,7 +84,7 @@ const Account = () => {
             }}
             style={styles.profileImage}
           />
-          <TouchableOpacity style={styles.editIcon} onPress={pickImage}>
+          <TouchableOpacity style={styles.editIcon} onPress={handleImagePick}>
             <MaterialIcons name="edit" size={18} color="#F85605" />
           </TouchableOpacity>
         </View>
@@ -96,12 +130,12 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     paddingHorizontal: 20,
     backgroundColor: "#fff",
-    justifyContent:"center",
+    justifyContent: "center",
     flexGrow: 1,
   },
 
   header: {
-    fontFamily:"Roboto",
+    fontFamily: "Roboto",
     fontSize: 24,
     fontWeight: "600",
     alignSelf: "center",
