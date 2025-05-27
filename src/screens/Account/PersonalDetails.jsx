@@ -54,12 +54,7 @@ const PersonalDetails = () => {
       <View style={{ width: "100%" }}>
         <BtnCus
           onPress={() =>
-            navigation.navigate("SuccessScreen", {
-              title: "Password Changed",
-              text: "Your password has been changed successfully",
-              buttonText: "Back to Login",
-              onPressType: "navigateToLogin",
-            })
+            navigation.navigate("HomeScreen", { screen: "Account" })
           }
           text="Save Changes"
           google={false}
