@@ -16,7 +16,7 @@ import HomeScreen from "../screens/HomeScreen";
 import Category from "../screens/Category";
 import Shop from "../screens/Shop";
 import Cart from "../screens/Cart";
-import Account from "../screens/Account";
+import Account from "../screens/Account/Account";
 
 const Tab = createBottomTabNavigator();
 const { width } = Dimensions.get("window");
