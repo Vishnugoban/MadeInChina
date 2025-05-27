@@ -43,8 +43,8 @@ const PersonalDetails = () => {
           placeholder="********"
           secureTextEntry={true}
         />
-        <TouchableOpacity onPress={() => navigation.navigate("ResetPwd")}>
-          <Text style={styles.changePwdText}>Forgot password?</Text>
+        <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")}>
+          <Text style={styles.changePwdText}>Change password?</Text>
         </TouchableOpacity>
       </View>
 

@@ -7,6 +7,7 @@ import VerifyCode from "../screens/LoginSignup/VerifyCode";
 import ResetPwd from "../screens/LoginSignup/ResetPwd";
 import SuccessScreen from "../screens/LoginSignup/SuccessScreen";
 import PersonalDetails from "../screens/Account/PersonalDetails";
+import ChangePassword from "../screens/Account/ChangePassword";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -48,9 +49,14 @@ const RootStack = () => {
         component={BottomTabNavigator}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="PersonalDetails"
         component={PersonalDetails}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ChangePassword"
+        component={ChangePassword}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
