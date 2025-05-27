@@ -15,16 +15,11 @@ const Account = () => {
   const [profileImage, setProfileImage] = useState(null);
 
   const handleImagePick = () => {
-    Alert.alert(
-      "Change Profile Picture",
-      "Choose an option",
-      [
-        { text: "Take Photo", onPress: openCamera },
-        { text: "Choose from Library", onPress: openGallery },
-        { text: "Cancel", style: "cancel" },
-      ],
-      { cancelable: true }
-    );
+    Alert.alert("Change Profile Picture", "Choose an option", [
+      { text: "Take Photo", onPress: openCamera },
+      { text: "Choose from Library", onPress: openGallery },
+      { cancelable: true },
+    ]);
   };
 
   const openGallery = async () => {
