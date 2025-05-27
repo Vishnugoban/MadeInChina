@@ -21,6 +21,9 @@ const SuccessScreen = () => {
     }
     if (onPressType === "navigateToHome") {
       navigation.navigate("HomeScreen");
+    }
+    if (onPressType === "navigateToAccount") {
+      navigation.navigate("HomeScreen", { screen: "Account" });
     } else {
       // fallback if no type matches
       navigation.navigate("HomeScreen");
