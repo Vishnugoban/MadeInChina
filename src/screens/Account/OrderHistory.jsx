@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +7,6 @@ import { useNavigation } from "@react-navigation/native";
 import BackBtnCus from "../../components/BackBtnCus";
 import TextBoxCus from "../../components/TextBoxCus";
 import BtnCus from "../../components/BtnCus";
-import { MaterialIcons } from "@expo/vector-icons";
 
 const OrderHistory = () => {
   const navigation = useNavigation();
