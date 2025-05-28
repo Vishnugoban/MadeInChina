@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import {
   Text,
   StyleSheet,
-  ScrollView,
   View,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
+
+import { SwipeListView } from "react-native-swipe-list-view";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import BtnCus from "../components/BtnCus";
 
 const initialCartItems = [
   {
@@ -24,7 +29,7 @@ const initialCartItems = [
     title: "Women Printed Kurta",
     subtitle: "Casual Wear",
     price: 2300,
-    quantity: 1,
+    quantity: 2,
     image: require("../assets/kurta.png"),
   },
   {
@@ -60,54 +65,81 @@ const Cart = () => {
     0
   );
 
+  const renderItem = (data) => (
+    <View style={styles.card}>
+      <Image source={data.item.image} style={styles.image} />
+
+      <View style={styles.details}>
+        <Text style={styles.title}>{data.item.title}</Text>
+        <Text style={styles.subtitle}>{data.item.subtitle}</Text>
+        <Text style={styles.price}>LKR {data.item.price.toFixed(2)}</Text>
+      </View>
+
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity
+          onPress={() => updateQuantity(data.item.id, -1)}
+          style={styles.qtyButton}
+        >
+          <Text style={styles.qtyText}>-</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.qtyCount}>{data.item.quantity}</Text>
+
+        <TouchableOpacity
+          onPress={() => updateQuantity(data.item.id, 1)}
+          style={styles.qtyButton}
+        >
+          <Text style={styles.qtyText}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const renderHiddenItem = (data) => (
+    <View style={styles.rowBack}>
+      <TouchableOpacity
+        style={styles.deleteBtn}
+        onPress={() => deleteItem(data.item.id)}
+      >
+        <Ionicons name="trash" size={24} color="#fff" />
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.header}>My Cart</Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.header}>My Account</Text>
 
-      {cartItems.map((item) => (
-        <View key={item.id} style={innerStyles.card}>
-          <Image source={item.image} style={innerStyles.image} />
+      <SwipeListView
+        data={cartItems}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        rightOpenValue={-55}
+        disableRightSwipe
+        contentContainerStyle={{ paddingBottom: 20 }}
+      />
 
-          <View style={innerStyles.details}>
-            <Text style={innerStyles.title}>{item.title}</Text>
-            <Text style={innerStyles.subtitle}>{item.subtitle}</Text>
-            <Text style={innerStyles.price}>LKR {item.price.toFixed(2)}</Text>
-          </View>
-
-          <View style={innerStyles.quantityContainer}>
-            <TouchableOpacity
-              onPress={() => updateQuantity(item.id, -1)}
-              style={innerStyles.qtyButton}
-            >
-              <Text style={innerStyles.qtyText}>-</Text>
-            </TouchableOpacity>
-
-            <Text style={innerStyles.qtyCount}>{item.quantity}</Text>
-
-            <TouchableOpacity
-              onPress={() => updateQuantity(item.id, 1)}
-              style={innerStyles.qtyButton}
-            >
-              <Text style={innerStyles.qtyText}>+</Text>
-            </TouchableOpacity>
-          </View>
-
-          <TouchableOpacity
-            onPress={() => deleteItem(item.id)}
-            style={innerStyles.deleteBtn}
-          >
-            <Ionicons name="trash" size={18} color="#fff" />
-          </TouchableOpacity>
-        </View>
-      ))}
-
-      <View style={innerStyles.footer}>
-        <Text style={innerStyles.totalLabel}>
+      <View style={styles.footer}>
+        <Text style={styles.totalLabel}>
           Total ({cartItems.length} item{cartItems.length !== 1 ? "s" : ""}) :
         </Text>
-        <Text style={innerStyles.totalValue}>LKR {totalAmount.toFixed(2)}</Text>
+        <Text style={styles.totalValue}>LKR {totalAmount.toFixed(2)}</Text>
       </View>
-    </ScrollView>
+
+      {/* Spacer */}
+      <View style={{ flex: 1 }} />
+
+      <View style={{ width: "100%" }}>
+        <BtnCus
+          onPress={() =>
+            navigation.navigate("HomeScreen", { screen: "Account" })
+          }
+          text="Save Changes"
+          google={false}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -128,84 +160,116 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: "#4D3E3E",
   },
-});
 
-const innerStyles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "#F8F8F8",
-    borderRadius: 12,
-    padding: 10,
+    backgroundColor: "#F9F9F9",
+    borderRadius: 13,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     alignItems: "center",
     marginBottom: 16,
-    position: "relative",
   },
+
   image: {
     width: 65,
     height: 65,
-    borderRadius: 8,
+    borderRadius: 5,
     marginRight: 10,
   },
+
   details: {
     flex: 1,
   },
+
   title: {
-    fontSize: 15,
+    fontFamily: "Roboto",
     fontWeight: "600",
+    fontSize: 15,
+    color: "#161616",
   },
+
   subtitle: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
     fontSize: 12,
-    color: "#777",
+    color: "#161616",
   },
+
   price: {
     marginTop: 4,
-    fontSize: 14,
-    color: "#000",
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    fontSize: 15,
+    color: "#161616",
   },
+
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#EEE",
-    borderRadius: 16,
+    borderRadius: 30,
     paddingHorizontal: 8,
     paddingVertical: 4,
   },
+
   qtyButton: {
     paddingHorizontal: 6,
+    backgroundColor: "#EEE",
   },
+
   qtyText: {
-    fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: "Roboto",
+    fontWeight: "400",
+    fontSize: 20,
+    color: "#161616",
   },
+
   qtyCount: {
     marginHorizontal: 6,
+    fontFamily: "Roboto",
+    fontWeight: "400",
     fontSize: 14,
-    fontWeight: "500",
+    color: "#161616",
   },
+
   deleteBtn: {
-    position: "absolute",
-    right: -10,
-    top: "30%",
-    backgroundColor: "#E74C3C",
-    borderRadius: 16,
-    padding: 8,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#161616",
+    width: 75,
+    height: "100%",
+    borderRadius: 15,
   },
+
+  rowBack: {
+    alignItems: "center",
+    backgroundColor: "#FFF",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginBottom: 16,
+    borderRadius: 12,
+  },
+
   footer: {
-    borderTopWidth: 1,
-    borderTopColor: "#EEE",
     paddingTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   totalLabel: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: "#333",
+    fontSize: 18,
+    fontWeight: "600",
+    fontFamily: "Roboto",
+    color: "#161616",
   },
+
   totalValue: {
     fontSize: 16,
-    fontWeight: "700",
-    color: "#000",
+    fontWeight: "600",
+    fontFamily: "Roboto",
+    color: "#161616",
   },
 });
 
