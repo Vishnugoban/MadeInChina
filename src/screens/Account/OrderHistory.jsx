@@ -107,10 +107,11 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginBottom: "3%",
   },
+
   scrollContainer: {
-    paddingHorizontal: 16,
     paddingBottom: 20,
   },
+
   card: {
     backgroundColor: "#F9F9F9",
     borderRadius: 12,
@@ -118,36 +119,44 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     elevation: 1,
   },
+
   cardHeader: {
     flexDirection: "row",
   },
+
   image: {
     width: 80,
     height: 80,
     borderRadius: 8,
     marginRight: 10,
   },
+
   details: {
     flex: 1,
     justifyContent: "space-between",
   },
+
   title: {
     fontWeight: "600",
     fontSize: 16,
   },
+
   price: {
     marginVertical: 4,
     color: "#333",
   },
+
   statusBadge: {
     paddingVertical: 2,
     paddingHorizontal: 8,
     borderRadius: 12,
     alignSelf: "flex-start",
   },
+
   info: {
     marginTop: 10,
   },
+
   infoText: {
     fontSize: 13,
     color: "#666",
