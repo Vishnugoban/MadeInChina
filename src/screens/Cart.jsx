@@ -127,7 +127,13 @@ const Cart = () => {
 
         <BtnCus
           onPress={() =>
-            navigation.navigate("HomeScreen", { screen: "Account" })
+            navigation.navigate("SuccessScreen", {
+              title: "Order Placed Successfully",
+              text: "We’ve received your order and will process it right away",
+              buttonText: "Back to home",
+              onPressType: "navigateToHome",
+              img: "orderDone",
+            })
           }
           text="Procced to checkout"
           google={false}

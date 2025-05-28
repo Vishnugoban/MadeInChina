@@ -5,13 +5,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import SvgImage from "../../assets/ok_image.svg";
+import OrderDoneImage from "../../assets/orderPlaced.svg";
 import BtnCus from "../../components/BtnCus";
 
 const SuccessScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const { title, text, buttonText, onPressType } = route.params;
+  const { title, text, buttonText, onPressType, img } = route.params;
 
   const handlePress = () => {
     if (onPressType === "navigateToLogin") {
@@ -33,7 +34,11 @@ const SuccessScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.slide}>
-        <SvgImage width={300} height={300} />
+        {img === "orderDone" ? (
+          <OrderDoneImage width={300} height={300} />
+        ) : (
+          <SvgImage width={300} height={300} />
+        )}
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.text}>{text}</Text>
       </View>
