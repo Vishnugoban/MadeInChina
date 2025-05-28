@@ -129,7 +129,7 @@ const Cart = () => {
           onPress={() =>
             navigation.navigate("HomeScreen", { screen: "Account" })
           }
-          text="Save Changes"
+          text="Procced to checkout"
           google={false}
         />
       </View>
