@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { Text, StyleSheet, View, Image, TouchableOpacity } from "react-native";
 
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Ionicons } from "@expo/vector-icons";
@@ -108,29 +101,30 @@ const Cart = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>My Account</Text>
+      <Text style={styles.header}>My Cart</Text>
 
-      <SwipeListView
-        data={cartItems}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        renderHiddenItem={renderHiddenItem}
-        rightOpenValue={-55}
-        disableRightSwipe
-        contentContainerStyle={{ paddingBottom: 20 }}
-      />
-
-      <View style={styles.footer}>
-        <Text style={styles.totalLabel}>
-          Total ({cartItems.length} item{cartItems.length !== 1 ? "s" : ""}) :
-        </Text>
-        <Text style={styles.totalValue}>LKR {totalAmount.toFixed(2)}</Text>
+      <View style={{ flex: 1 }}>
+        <SwipeListView
+          data={cartItems}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          renderHiddenItem={renderHiddenItem}
+          rightOpenValue={-75}
+          disableRightSwipe
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 120 }}
+        />
       </View>
 
-      {/* Spacer */}
-      <View style={{ flex: 1 }} />
+      {/* Fixed Footer */}
+      <View style={styles.fixedFooter}>
+        <View style={styles.footerRow}>
+          <Text style={styles.totalLabel}>
+            Total ({cartItems.length} item{cartItems.length !== 1 ? "s" : ""}) :
+          </Text>
+          <Text style={styles.totalValue}>LKR {totalAmount.toFixed(2)}</Text>
+        </View>
 
-      <View style={{ width: "100%" }}>
         <BtnCus
           onPress={() =>
             navigation.navigate("HomeScreen", { screen: "Account" })
@@ -145,11 +139,10 @@ const Cart = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+    flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center",
-    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 40,
   },
 
   header: {
@@ -252,23 +245,33 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-  footer: {
-    paddingTop: 20,
+  fixedFooter: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    backgroundColor: "#fff",
+    paddingTop: 10,
+  },
+
+  footerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
   },
 
   totalLabel: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
-    fontFamily: "Roboto",
     color: "#161616",
   },
 
   totalValue: {
     fontSize: 16,
     fontWeight: "600",
-    fontFamily: "Roboto",
     color: "#161616",
   },
 });
