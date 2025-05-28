@@ -11,8 +11,8 @@ const orders = [
     title: "Leather Handbag",
     price: "LKR 990.00",
     status: "Awaiting Delivery",
-    statusColor: "#FFEFE9",
-    statusTextColor: "#FF6B00",
+    statusColor: "#FEEEE6",
+    statusTextColor: "#F85605",
     total: "990.00",
     deliveryDate: "3rd May 2025",
   },
@@ -22,8 +22,8 @@ const orders = [
     title: "Women Printed Kurta",
     price: "LKR 2300.00",
     status: "Completed",
-    statusColor: "#E6F6EC",
-    statusTextColor: "#2ECC71",
+    statusColor: "#E1FFED",
+    statusTextColor: "#108649",
     total: "2300.00",
     deliveryDate: "20th April 2025",
   },
@@ -33,8 +33,8 @@ const orders = [
     title: "Women Sneakers",
     price: "LKR 4890.00",
     status: "Cancelled",
-    statusColor: "#FFEFEF",
-    statusTextColor: "#E74C3C",
+    statusColor: "#FFEBED",
+    statusTextColor: "#F54135",
     total: "4890.00",
     deliveryDate: "21st April 2025",
   },
@@ -52,7 +52,10 @@ const OrderHistory = () => {
       </View>
 
       {/* Order Cards */}
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {orders.map((order) => (
           <View key={order.id} style={styles.card}>
             <View style={styles.cardHeader}>
@@ -66,7 +69,14 @@ const OrderHistory = () => {
                     { backgroundColor: order.statusColor },
                   ]}
                 >
-                  <Text style={{ color: order.statusTextColor, fontSize: 12 }}>
+                  <Text
+                    style={{
+                      color: order.statusTextColor,
+                      fontFamily: "Roboto",
+                      fontSize: 12,
+                      fontWeight: "500",
+                    }}
+                  >
                     {order.status}
                   </Text>
                 </View>
@@ -114,10 +124,10 @@ const styles = StyleSheet.create({
 
   card: {
     backgroundColor: "#F9F9F9",
-    borderRadius: 12,
+    borderRadius: 8,
     padding: 12,
     marginBottom: 16,
-    elevation: 1,
+    elevation: 0.5,
   },
 
   cardHeader: {
@@ -125,9 +135,10 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: 150,
+    height: 85,
+    resizeMode: "cover",
+    borderRadius: 4,
     marginRight: 10,
   },
 
@@ -137,19 +148,23 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontWeight: "600",
+    fontFamily: "Roboto",
+    fontWeight: "500",
     fontSize: 16,
+    color: "#161616",
   },
 
   price: {
+    fontFamily: "Roboto",
+    fontSize: 14,
     marginVertical: 4,
-    color: "#333",
+    color: "#161616",
   },
 
   statusBadge: {
     paddingVertical: 2,
     paddingHorizontal: 8,
-    borderRadius: 12,
+    borderRadius: 8,
     alignSelf: "flex-start",
   },
 
@@ -158,8 +173,10 @@ const styles = StyleSheet.create({
   },
 
   infoText: {
-    fontSize: 13,
-    color: "#666",
+    fontSize: 14,
+    color: "#76889A",
     marginTop: 2,
+    fontFamily: "Roboto",
+    fontWeight: "400",
   },
 });
