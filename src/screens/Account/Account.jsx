@@ -93,15 +93,9 @@ const Account = () => {
 
       <View style={styles.card}>
         <Option
-          icon={
-            <Octicons
-              name="person"
-              size={20}
-              color="#F85605"
-              onPress={() => navigation.navigate("PersonalDetails")}
-            />
-          }
+          icon={<Octicons name="person" size={20} color="#F85605" />}
           label="Personal Details"
+          onPress={() => navigation.navigate("PersonalDetails")}
         />
         <Option
           icon={<MaterialIcons name="apartment" size={20} color="#418DD9" />}
