@@ -106,10 +106,12 @@ const Account = () => {
         <Option
           icon={<MaterialIcons name="apartment" size={20} color="#418DD9" />}
           label="Shipping Details"
+          onPress={() => navigation.navigate("ShippingDetails")}
         />
         <Option
           icon={<MaterialIcons name="history" size={20} color="#5C5C5C" />}
           label="Order History"
+          onPress={() => navigation.navigate("OrderHistory")}
         />
       </View>
 

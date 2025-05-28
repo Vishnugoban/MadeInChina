@@ -16,36 +16,22 @@ const ShippingDetails = () => {
     <SafeAreaView style={styles.container}>
       <View style={{ width: "100%" }}>
         <BackBtnCus />
-        <Text style={[styles.title, { marginTop: 15 }]}>Personal Details</Text>
-      </View>
-
-      <View style={styles.profileSection}>
-        <View>
-          <Image
-            source={{
-              uri: "https://www.w3schools.com/howto/img_avatar.png",
-            }}
-            style={styles.profileImage}
-          />
-          <View style={styles.editIcon}>
-            <MaterialIcons name="edit" size={18} color="#fff" />
-          </View>
-        </View>
+        <Text style={[styles.title, { marginTop: 15 }]}>Shipping Details</Text>
       </View>
 
       {/* Input Fields */}
       <View style={{ width: "100%" }}>
-        <TextBoxCus label="Name" placeholder="Zara Zynna" />
-        <TextBoxCus label="Email" placeholder="zara@gmail.com" />
-        <TextBoxCus label="Phone Number" placeholder="+94 76 123 4567" />
+        <TextBoxCus label="Street Address" placeholder="45/3 Galle Road" />
         <TextBoxCus
-          label="Password"
-          placeholder="********"
-          secureTextEntry={true}
+          label="Apartment / Suite / Unit (Optional)"
+          placeholder="Apt 6B"
         />
-        <TouchableOpacity onPress={() => navigation.navigate("ChangePassword")}>
-          <Text style={styles.changePwdText}>Change password?</Text>
-        </TouchableOpacity>
+        <TextBoxCus label="City / Town" placeholder="Colombo" />
+        <TextBoxCus
+          label="State / Province / Region"
+          placeholder="Western Province"
+        />
+        <TextBoxCus label="Zip / Postal Code" placeholder="00300" />
       </View>
 
       {/* Spacer */}
@@ -80,38 +66,5 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "left",
     marginBottom: "3%",
-  },
-
-  changePwdText: {
-    fontFamily: "Roboto",
-    fontSize: 12,
-    color: "#F54135",
-    fontWeight: "500",
-    textDecorationLine: "underline",
-    textDecorationStyle: "solid",
-    textAlign: "right",
-    marginTop: 10,
-  },
-
-  profileSection: {
-    alignItems: "center",
-    marginVertical: 10,
-  },
-
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-
-  editIcon: {
-    position: "absolute",
-    bottom: 0,
-    right: -5,
-    backgroundColor: "#4392F9",
-    padding: 6,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: "#fff",
   },
 });
