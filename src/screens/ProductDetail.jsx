@@ -11,8 +11,7 @@ import {
   Modal,
 } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
-import { Ionicons } from "@expo/vector-icons";
-import { Button } from "react-native-paper";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -170,12 +169,14 @@ export default function ProductDetail() {
 
         {/* Action Buttons */}
         <View style={styles.buttonRow}>
-          <Button mode="outlined" style={styles.btn} textColor="#ff5400">
-            Add to Cart
-          </Button>
-          <Button mode="contained" style={styles.btn} buttonColor="#ff5400">
-            Buy Now
-          </Button>
+          <TouchableOpacity style={styles.addToCartBtn}>
+            <MaterialCommunityIcons name="cart" size={20} color="#F85605" />
+            <Text style={styles.addToCartText}>Add to Cart</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buyNowBtn}>
+            <MaterialCommunityIcons name="wallet" size={20} color="#fff" />
+            <Text style={styles.buyNowText}>Buy Now</Text>
+          </TouchableOpacity>
         </View>
 
         {/* WhatsApp Inquiry */}
@@ -365,14 +366,44 @@ const styles = StyleSheet.create({
   bulkOrder: { fontSize: 13, color: "gray", marginBottom: 15 },
 
   buttonRow: {
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
   },
 
-  btn: {
-    flex: 1,
-    marginHorizontal: 5,
-    borderRadius: 10,
+  addToCartBtn: {
+    width: "45%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: "#F85605",
+    borderRadius: 12,
+    padding: 10,
+  },
+
+  addToCartText: {
+    marginLeft: 8,
+    color: "#F85605",
+    fontWeight: "bold",
+  },
+
+  buyNowBtn: {
+    width: "45%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 15,
+    backgroundColor: "#F85605",
+    borderRadius: 12,
+    padding: 10,
+  },
+
+  buyNowText: {
+    marginLeft: 8,
+    color: "#fff",
+    fontWeight: "bold",
   },
 
   whatsappBtn: {
