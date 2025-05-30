@@ -6,100 +6,157 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  FlatList,
+  Dimensions,
+  Modal,
 } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 import { Ionicons } from "@expo/vector-icons";
 import { Button } from "react-native-paper";
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("L");
-  const [selectedColor, setSelectedColor] = useState("#c4912e"); // mustard
+  const [selectedColor, setSelectedColor] = useState("#c4912e");
+  const [imageIndex, setImageIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const sizes = ["S", "M", "L", "XL", "XXL"];
   const colors = ["#000000", "#ffffff", "#c4912e"];
+  const maxStock = 3;
+
+  const images = [
+    require("../assets/kurta1.jpg"),
+    require("../assets/kurta2.jpg"),
+    require("../assets/kurta4.png"),
+  ];
+  const { width } = Dimensions.get("window");
+
+  const imageUrls = images.map((img) => ({
+    url: "", // Required by the library
+    props: { source: img },
+  }));
+
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity
+      onPress={() => {
+        setImageIndex(index);
+        setIsVisible(true);
+      }}
+    >
+      <Image
+        source={item}
+        style={{ width, height: 380, resizeMode: "cover" }}
+      />
+    </TouchableOpacity>
+  );
 
   return (
     <ScrollView style={styles.container}>
-      {/* Product Image */}
-      <Image
-        source={{ uri: "https://i.imgur.com/kxWhsDG.png" }} // Replace with your actual image URL
-        style={styles.productImage}
+      {/* Image Carousel */}
+      <FlatList
+        data={images}
+        renderItem={renderItem}
+        keyExtractor={(_, index) => index.toString()}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onMomentumScrollEnd={(e) => {
+          const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
+          setImageIndex(newIndex);
+        }}
       />
 
+      {/* Dots */}
+      <View style={styles.carouselDots}>
+        {images.map((_, index) => (
+          <View
+            key={index}
+            style={[styles.dot, index === imageIndex && styles.activeDot]}
+          />
+        ))}
+      </View>
+
+      {/* Product Details Card */}
       <View style={styles.card}>
-        {/* Title */}
         <Text style={styles.title}>Women Printed Kurta</Text>
         <Text style={styles.subtitle}>Casual Wear</Text>
 
-        {/* Quantity & Stock */}
+        {/* Quantity */}
         <View style={styles.row}>
           <View style={styles.quantityContainer}>
             <TouchableOpacity
               onPress={() => setQuantity((prev) => Math.max(1, prev - 1))}
               style={styles.qtyBtn}
+              disabled={quantity <= 1}
             >
               <Text style={styles.qtyBtnText}>-</Text>
             </TouchableOpacity>
             <Text style={styles.qtyText}>{quantity}</Text>
             <TouchableOpacity
-              onPress={() => setQuantity((prev) => prev + 1)}
+              onPress={() =>
+                setQuantity((prev) => Math.min(maxStock, prev + 1))
+              }
               style={styles.qtyBtn}
+              disabled={quantity >= maxStock}
             >
               <Text style={styles.qtyBtnText}>+</Text>
             </TouchableOpacity>
           </View>
-          <Text style={styles.stockText}>03 Available in stock</Text>
+          <Text style={styles.stockText}>
+            {maxStock - quantity} Available in stock
+          </Text>
         </View>
 
-        {/* Size Selector */}
+        {/* Size & Color */}
         <Text style={styles.sectionTitle}>Size</Text>
-        <View style={styles.row}>
-          {sizes.map((size) => (
-            <TouchableOpacity
-              key={size}
-              onPress={() => setSelectedSize(size)}
-              style={[
-                styles.sizeCircle,
-                selectedSize === size && styles.selectedCircle,
-              ]}
-            >
-              <Text
+        <View style={styles.sizeColorRow}>
+          <View style={styles.sizeSelector}>
+            {sizes.map((size) => (
+              <TouchableOpacity
+                key={size}
+                onPress={() => setSelectedSize(size)}
                 style={[
-                  styles.sizeText,
-                  selectedSize === size && styles.selectedText,
+                  styles.sizeCircle,
+                  selectedSize === size && styles.selectedCircle,
                 ]}
               >
-                {size}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+                <Text
+                  style={[
+                    styles.sizeText,
+                    selectedSize === size && styles.selectedText,
+                  ]}
+                >
+                  {size}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
 
-        {/* Color Selector */}
-        <Text style={styles.sectionTitle}>Color</Text>
-        <View style={styles.row}>
-          {colors.map((color) => (
-            <TouchableOpacity
-              key={color}
-              onPress={() => setSelectedColor(color)}
-              style={[
-                styles.colorCircle,
-                { backgroundColor: color },
-                selectedColor === color && styles.selectedColorBorder,
-              ]}
-            />
-          ))}
+          <View style={styles.colorPill}>
+            {colors.map((color) => (
+              <TouchableOpacity
+                key={color}
+                onPress={() => setSelectedColor(color)}
+                style={[
+                  styles.colorCircle,
+                  { backgroundColor: color },
+                  selectedColor === color && styles.selectedColorBorder,
+                ]}
+              />
+            ))}
+          </View>
         </View>
 
         {/* Description */}
         <Text style={styles.sectionTitle}>Description</Text>
         <Text style={styles.description}>
-          Stay stylish with this women&apos;s printed kurta, perfect for casual
-          wear. Made with soft, breathable fabric and designed for all-day
-          comfort, it&apos;s your go-to choice for a relaxed yet chic look.
+          Stay stylish with this womens printed kurta, perfect for casual wear.
+          Made with soft, breathable fabric and designed for all-day comfort,
+          its your go-to choice for a relaxed yet chic look.
         </Text>
 
-        {/* Pricing */}
+        {/* Price */}
         <Text style={styles.price}>
           Price : LKR 2100.00 <Text style={styles.strike}>LKR 2900.00</Text>
         </Text>
@@ -110,7 +167,7 @@ export default function ProductDetail() {
           Bulk Order: Orders start from a minimum of 10 or 15 items
         </Text>
 
-        {/* Buttons */}
+        {/* Action Buttons */}
         <View style={styles.buttonRow}>
           <Button mode="outlined" style={styles.btn} textColor="#ff5400">
             Add to Cart
@@ -120,22 +177,46 @@ export default function ProductDetail() {
           </Button>
         </View>
 
+        {/* WhatsApp Inquiry */}
         <TouchableOpacity style={styles.whatsappBtn}>
           <Ionicons name="logo-whatsapp" size={20} color="green" />
           <Text style={styles.whatsappText}>Inquire Via Whatsapp</Text>
         </TouchableOpacity>
       </View>
+
+      {/* Image Zoom Modal */}
+      <Modal
+        visible={isVisible}
+        transparent={true}
+        onRequestClose={() => setIsVisible(false)}
+      >
+        <ImageViewer
+          imageUrls={imageUrls}
+          index={imageIndex}
+          onCancel={() => setIsVisible(false)}
+          enableSwipeDown
+        />
+      </Modal>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { backgroundColor: "#fff" },
-  productImage: {
-    width: "100%",
-    height: 380,
-    resizeMode: "cover",
+  carouselDots: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: -15,
+    marginBottom: 10,
   },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#ccc",
+    marginHorizontal: 4,
+  },
+  activeDot: { backgroundColor: "red" },
   card: {
     backgroundColor: "#fff",
     borderTopLeftRadius: 25,
@@ -149,14 +230,32 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 20, fontWeight: "600" },
   subtitle: { fontSize: 14, color: "gray", marginBottom: 10 },
-
   row: {
     flexDirection: "row",
     alignItems: "center",
     marginVertical: 10,
     flexWrap: "wrap",
   },
-
+  sizeColorRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  sizeSelector: {
+    flexDirection: "row",
+    flex: 1,
+    flexWrap: "wrap",
+  },
+  colorPill: {
+    flexDirection: "column",
+    padding: 6,
+    backgroundColor: "#f4f4f4",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+  },
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -164,13 +263,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 8,
   },
-  qtyBtn: {
-    padding: 6,
-  },
+  qtyBtn: { padding: 6 },
   qtyBtnText: { fontSize: 18, fontWeight: "bold" },
   qtyText: { fontSize: 16, marginHorizontal: 8 },
   stockText: { marginLeft: 20, fontSize: 14, color: "green" },
-
   sectionTitle: { marginTop: 10, fontWeight: "bold", fontSize: 15 },
   sizeCircle: {
     borderWidth: 1,
@@ -178,6 +274,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     padding: 10,
     marginRight: 10,
+    marginBottom: 10,
   },
   selectedCircle: {
     borderColor: "#000",
@@ -185,12 +282,11 @@ const styles = StyleSheet.create({
   },
   sizeText: { fontSize: 14 },
   selectedText: { color: "#fff" },
-
   colorCircle: {
     width: 24,
     height: 24,
     borderRadius: 12,
-    marginRight: 10,
+    marginVertical: 5,
     borderWidth: 1,
     borderColor: "#ccc",
   },
@@ -198,7 +294,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#000",
   },
-
   description: { fontSize: 14, marginVertical: 10, color: "#444" },
   price: { fontSize: 16, fontWeight: "bold", marginTop: 5 },
   strike: {
@@ -208,7 +303,6 @@ const styles = StyleSheet.create({
   },
   delivery: { fontSize: 13, color: "gray", marginTop: 5 },
   bulkOrder: { fontSize: 13, color: "gray", marginBottom: 15 },
-
   buttonRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -218,7 +312,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     borderRadius: 10,
   },
-
   whatsappBtn: {
     flexDirection: "row",
     justifyContent: "center",
@@ -229,5 +322,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
   },
-  whatsappText: { marginLeft: 8, color: "green", fontWeight: "bold" },
+  whatsappText: {
+    marginLeft: 8,
+    color: "green",
+    fontWeight: "bold",
+  },
 });
