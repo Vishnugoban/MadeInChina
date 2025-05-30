@@ -65,9 +65,10 @@ export default function ProductDetail() {
           const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
           setImageIndex(newIndex);
         }}
+        style={{ maxHeight: 400 }} // added to ensure height is consistent
       />
 
-      {/* Dots */}
+      {/* Carousel Dots */}
       <View style={styles.carouselDots}>
         {images.map((_, index) => (
           <View
@@ -203,12 +204,15 @@ export default function ProductDetail() {
 
 const styles = StyleSheet.create({
   container: { backgroundColor: "#fff" },
+
   carouselDots: {
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
     marginTop: -15,
-    marginBottom: 10,
+    marginBottom: 25,
   },
+
   dot: {
     width: 8,
     height: 8,
@@ -216,7 +220,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
     marginHorizontal: 4,
   },
+
   activeDot: { backgroundColor: "red" },
+
   card: {
     backgroundColor: "#fff",
     borderTopLeftRadius: 25,
@@ -228,25 +234,34 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 4,
   },
-  title: { fontSize: 20, fontWeight: "600" },
-  subtitle: { fontSize: 14, color: "gray", marginBottom: 10 },
+
+  title: { fontFamily: "Roboto", fontSize: 16, fontWeight: "600" },
+
+  subtitle: {
+    fontFamily: "Roboto",
+    fontSize: 14,
+    color: "#666666",
+    marginBottom: 10,
+  },
+
   row: {
     flexDirection: "row",
     alignItems: "center",
-    marginVertical: 10,
     flexWrap: "wrap",
   },
+
   sizeColorRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginVertical: 10,
   },
+
   sizeSelector: {
     flexDirection: "row",
     flex: 1,
     flexWrap: "wrap",
   },
+
   colorPill: {
     flexDirection: "column",
     padding: 6,
@@ -256,32 +271,64 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
   },
+
   quantityContainer: {
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#eee",
-    borderRadius: 10,
+    borderRadius: 30,
     paddingHorizontal: 8,
   },
+
   qtyBtn: { padding: 6 },
-  qtyBtnText: { fontSize: 18, fontWeight: "bold" },
-  qtyText: { fontSize: 16, marginHorizontal: 8 },
-  stockText: { marginLeft: 20, fontSize: 14, color: "green" },
-  sectionTitle: { marginTop: 10, fontWeight: "bold", fontSize: 15 },
+
+  qtyBtnText: { fontFamily: "Roboto", fontSize: 18, fontWeight: "600" },
+
+  qtyText: { fontFamily: "Roboto", fontSize: 16, marginHorizontal: 8 },
+
+  stockText: {
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    marginLeft: 20,
+    fontSize: 14,
+    color: "#000000",
+  },
+
+  sectionTitle: {
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    marginTop: 25,
+    fontSize: 15,
+  },
+
   sizeCircle: {
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 25,
+    borderRadius: 20,
     padding: 10,
     marginRight: 10,
     marginBottom: 10,
   },
+
   selectedCircle: {
     borderColor: "#000",
     backgroundColor: "#000",
   },
-  sizeText: { fontSize: 14 },
-  selectedText: { color: "#fff" },
+
+  sizeText: {
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    fontSize: 14,
+    color: "#888888",
+  },
+
+  selectedText: {
+    fontFamily: "Roboto",
+    fontWeight: "600",
+    fontSize: 14,
+    color: "#fff",
+  },
+
   colorCircle: {
     width: 24,
     height: 24,
@@ -290,28 +337,44 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
   },
+
   selectedColorBorder: {
     borderWidth: 2,
     borderColor: "#000",
   },
-  description: { fontSize: 14, marginVertical: 10, color: "#444" },
+
+  description: {
+    fontFamily: "Roboto",
+    fontWeight: "400",
+    fontSize: 12,
+    marginVertical: 10,
+    color: "#666666",
+    textAlign: "justify",
+  },
+
   price: { fontSize: 16, fontWeight: "bold", marginTop: 5 },
+
   strike: {
     textDecorationLine: "line-through",
     color: "gray",
     fontWeight: "normal",
   },
-  delivery: { fontSize: 13, color: "gray", marginTop: 5 },
+
+  delivery: { fontSize: 13, color: "gray", marginVertical: 15 },
+
   bulkOrder: { fontSize: 13, color: "gray", marginBottom: 15 },
+
   buttonRow: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   btn: {
     flex: 1,
     marginHorizontal: 5,
     borderRadius: 10,
   },
+
   whatsappBtn: {
     flexDirection: "row",
     justifyContent: "center",
@@ -322,6 +385,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
   },
+
   whatsappText: {
     marginLeft: 8,
     color: "green",
