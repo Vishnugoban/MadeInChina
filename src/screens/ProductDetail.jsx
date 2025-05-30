@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
@@ -51,155 +52,157 @@ export default function ProductDetail() {
   );
 
   return (
-    <ScrollView style={styles.container}>
-      {/* Image Carousel */}
-      <FlatList
-        data={images}
-        renderItem={renderItem}
-        keyExtractor={(_, index) => index.toString()}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        onMomentumScrollEnd={(e) => {
-          const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
-          setImageIndex(newIndex);
-        }}
-        style={{ maxHeight: 400 }} // added to ensure height is consistent
-      />
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <ScrollView style={styles.container}>
+        {/* Image Carousel */}
+        <FlatList
+          data={images}
+          renderItem={renderItem}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onMomentumScrollEnd={(e) => {
+            const newIndex = Math.round(e.nativeEvent.contentOffset.x / width);
+            setImageIndex(newIndex);
+          }}
+          style={{ maxHeight: 400 }} // added to ensure height is consistent
+        />
 
-      {/* Carousel Dots */}
-      <View style={styles.carouselDots}>
-        {images.map((_, index) => (
-          <View
-            key={index}
-            style={[styles.dot, index === imageIndex && styles.activeDot]}
-          />
-        ))}
-      </View>
-
-      {/* Product Details Card */}
-      <View style={styles.card}>
-        <Text style={styles.title}>Women Printed Kurta</Text>
-        <Text style={styles.subtitle}>Casual Wear</Text>
-
-        {/* Quantity */}
-        <View style={styles.row}>
-          <View style={styles.quantityContainer}>
-            <TouchableOpacity
-              onPress={() => setQuantity((prev) => Math.max(1, prev - 1))}
-              style={styles.qtyBtn}
-              disabled={quantity <= 1}
-            >
-              <Text style={styles.qtyBtnText}>-</Text>
-            </TouchableOpacity>
-            <Text style={styles.qtyText}>{quantity}</Text>
-            <TouchableOpacity
-              onPress={() =>
-                setQuantity((prev) => Math.min(maxStock, prev + 1))
-              }
-              style={styles.qtyBtn}
-              disabled={quantity >= maxStock}
-            >
-              <Text style={styles.qtyBtnText}>+</Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.stockText}>
-            {maxStock - quantity} Available in stock
-          </Text>
+        {/* Carousel Dots */}
+        <View style={styles.carouselDots}>
+          {images.map((_, index) => (
+            <View
+              key={index}
+              style={[styles.dot, index === imageIndex && styles.activeDot]}
+            />
+          ))}
         </View>
 
-        {/* Size & Color */}
-        <Text style={styles.sectionTitle}>Size</Text>
-        <View style={styles.sizeColorRow}>
-          <View style={styles.sizeSelector}>
-            {sizes.map((size) => (
+        {/* Product Details Card */}
+        <View style={styles.card}>
+          <Text style={styles.title}>Women Printed Kurta</Text>
+          <Text style={styles.subtitle}>Casual Wear</Text>
+
+          {/* Quantity */}
+          <View style={styles.row}>
+            <View style={styles.quantityContainer}>
               <TouchableOpacity
-                key={size}
-                onPress={() => setSelectedSize(size)}
-                style={[
-                  styles.sizeCircle,
-                  selectedSize === size && styles.selectedCircle,
-                ]}
+                onPress={() => setQuantity((prev) => Math.max(1, prev - 1))}
+                style={styles.qtyBtn}
+                disabled={quantity <= 1}
               >
-                <Text
+                <Text style={styles.qtyBtnText}>-</Text>
+              </TouchableOpacity>
+              <Text style={styles.qtyText}>{quantity}</Text>
+              <TouchableOpacity
+                onPress={() =>
+                  setQuantity((prev) => Math.min(maxStock, prev + 1))
+                }
+                style={styles.qtyBtn}
+                disabled={quantity >= maxStock}
+              >
+                <Text style={styles.qtyBtnText}>+</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.stockText}>
+              {maxStock - quantity} Available in stock
+            </Text>
+          </View>
+
+          {/* Size & Color */}
+          <Text style={styles.sectionTitle}>Size</Text>
+          <View style={styles.sizeColorRow}>
+            <View style={styles.sizeSelector}>
+              {sizes.map((size) => (
+                <TouchableOpacity
+                  key={size}
+                  onPress={() => setSelectedSize(size)}
                   style={[
-                    styles.sizeText,
-                    selectedSize === size && styles.selectedText,
+                    styles.sizeCircle,
+                    selectedSize === size && styles.selectedCircle,
                   ]}
                 >
-                  {size}
-                </Text>
-              </TouchableOpacity>
-            ))}
+                  <Text
+                    style={[
+                      styles.sizeText,
+                      selectedSize === size && styles.selectedText,
+                    ]}
+                  >
+                    {size}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <View style={styles.colorPill}>
+              {colors.map((color) => (
+                <TouchableOpacity
+                  key={color}
+                  onPress={() => setSelectedColor(color)}
+                  style={[
+                    styles.colorCircle,
+                    { backgroundColor: color },
+                    selectedColor === color && styles.selectedColorBorder,
+                  ]}
+                />
+              ))}
+            </View>
           </View>
 
-          <View style={styles.colorPill}>
-            {colors.map((color) => (
-              <TouchableOpacity
-                key={color}
-                onPress={() => setSelectedColor(color)}
-                style={[
-                  styles.colorCircle,
-                  { backgroundColor: color },
-                  selectedColor === color && styles.selectedColorBorder,
-                ]}
-              />
-            ))}
+          {/* Description */}
+          <Text style={styles.sectionTitle}>Description</Text>
+          <Text style={styles.description}>
+            Stay stylish with this womens printed kurta, perfect for casual
+            wear. Made with soft, breathable fabric and designed for all-day
+            comfort, its your go-to choice for a relaxed yet chic look.
+          </Text>
+
+          {/* Price */}
+          <Text style={styles.price}>
+            Price : LKR 2100.00 <Text style={styles.strike}>LKR 2900.00</Text>
+          </Text>
+          <Text style={styles.delivery}>
+            Est Delivery: Next day / 14 days delivery / 30 - 45 days delivery
+          </Text>
+          <Text style={styles.bulkOrder}>
+            Bulk Order: Orders start from a minimum of 10 or 15 items
+          </Text>
+
+          {/* Action Buttons */}
+          <View style={styles.buttonRow}>
+            <TouchableOpacity style={styles.addToCartBtn}>
+              <MaterialCommunityIcons name="cart" size={20} color="#F85605" />
+              <Text style={styles.addToCartText}>Add to Cart</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buyNowBtn}>
+              <MaterialCommunityIcons name="wallet" size={20} color="#fff" />
+              <Text style={styles.buyNowText}>Buy Now</Text>
+            </TouchableOpacity>
           </View>
-        </View>
 
-        {/* Description */}
-        <Text style={styles.sectionTitle}>Description</Text>
-        <Text style={styles.description}>
-          Stay stylish with this womens printed kurta, perfect for casual wear.
-          Made with soft, breathable fabric and designed for all-day comfort,
-          its your go-to choice for a relaxed yet chic look.
-        </Text>
-
-        {/* Price */}
-        <Text style={styles.price}>
-          Price : LKR 2100.00 <Text style={styles.strike}>LKR 2900.00</Text>
-        </Text>
-        <Text style={styles.delivery}>
-          Est Delivery: Next day / 14 days delivery / 30 - 45 days delivery
-        </Text>
-        <Text style={styles.bulkOrder}>
-          Bulk Order: Orders start from a minimum of 10 or 15 items
-        </Text>
-
-        {/* Action Buttons */}
-        <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.addToCartBtn}>
-            <MaterialCommunityIcons name="cart" size={20} color="#F85605" />
-            <Text style={styles.addToCartText}>Add to Cart</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buyNowBtn}>
-            <MaterialCommunityIcons name="wallet" size={20} color="#fff" />
-            <Text style={styles.buyNowText}>Buy Now</Text>
+          {/* WhatsApp Inquiry */}
+          <TouchableOpacity style={styles.whatsappBtn}>
+            <Ionicons name="logo-whatsapp" size={20} color="green" />
+            <Text style={styles.whatsappText}>Inquire Via Whatsapp</Text>
           </TouchableOpacity>
         </View>
 
-        {/* WhatsApp Inquiry */}
-        <TouchableOpacity style={styles.whatsappBtn}>
-          <Ionicons name="logo-whatsapp" size={20} color="green" />
-          <Text style={styles.whatsappText}>Inquire Via Whatsapp</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Image Zoom Modal */}
-      <Modal
-        visible={isVisible}
-        transparent={true}
-        onRequestClose={() => setIsVisible(false)}
-      >
-        <ImageViewer
-          imageUrls={imageUrls}
-          index={imageIndex}
-          onCancel={() => setIsVisible(false)}
-          enableSwipeDown
-        />
-      </Modal>
-    </ScrollView>
+        {/* Image Zoom Modal */}
+        <Modal
+          visible={isVisible}
+          transparent={true}
+          onRequestClose={() => setIsVisible(false)}
+        >
+          <ImageViewer
+            imageUrls={imageUrls}
+            index={imageIndex}
+            onCancel={() => setIsVisible(false)}
+            enableSwipeDown
+          />
+        </Modal>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
