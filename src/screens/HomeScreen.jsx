@@ -15,6 +15,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import TempLogo from "../assets/tem_logo.svg";
+import { useNavigation } from "@react-navigation/native";
 
 const categories = [
   {
@@ -65,20 +66,26 @@ const CategoryItem = ({ image, title }) => (
   </TouchableOpacity>
 );
 
-const ProductCard = ({ item, cardWidth }) => (
-  <View style={[styles.productCard, { width: cardWidth }]}>
-    <Image source={item.image} style={styles.productImage} />
-    <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
-      <Text numberOfLines={2} style={styles.productTitle}>
-        {item.title}
-      </Text>
-      <Text style={styles.productPrice}>LKR {item.price}.00</Text>
-      <Text style={styles.delivery}>
-        Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
-      </Text>
-    </View>
-  </View>
-);
+const ProductCard = ({ item, cardWidth }) => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      style={[styles.productCard, { width: cardWidth }]}
+      onPress={() => navigation.navigate("ProductDetail", { item })}
+    >
+      <Image source={item.image} style={styles.productImage} />
+      <View style={{ paddingVertical: 5, paddingHorizontal: 10 }}>
+        <Text numberOfLines={2} style={styles.productTitle}>
+          {item.title}
+        </Text>
+        <Text style={styles.productPrice}>LKR {item.price}.00</Text>
+        <Text style={styles.delivery}>
+          Est Delivery: Next day / 14 days seller / 30 - 45 days delivery
+        </Text>
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 const HomeScreen = () => {
   const { width } = useWindowDimensions();

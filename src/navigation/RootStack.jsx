@@ -10,6 +10,7 @@ import PersonalDetails from "../screens/Account/PersonalDetails";
 import ChangePassword from "../screens/Account/ChangePassword";
 import ShippingDetails from "../screens/Account/ShippingDetails";
 import OrderHistory from "../screens/Account/OrderHistory";
+import ProductDetail from "../screens/ProductDetail";
 
 const Stack = createNativeStackNavigator();
 const RootStack = () => {
@@ -61,14 +62,19 @@ const RootStack = () => {
         component={ChangePassword}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="ShippingDetails"
         component={ShippingDetails}
         options={{ headerShown: false }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="OrderHistory"
         component={OrderHistory}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetail}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
