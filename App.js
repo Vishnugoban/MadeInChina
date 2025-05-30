@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import { ActivityIndicator, View, StatusBar } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
@@ -44,11 +44,20 @@ export default function App() {
     );
   }
 
-  return showRealApp ? (
-    <NavigationContainer>
-      <RootStack />
-    </NavigationContainer>
-  ) : (
-    <IntroSlider onDone={handleDone} />
+  return (
+    <>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
+      {showRealApp ? (
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      ) : (
+        <IntroSlider onDone={handleDone} />
+      )}
+    </>
   );
 }
